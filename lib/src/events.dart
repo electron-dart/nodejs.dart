@@ -4,9 +4,9 @@
 part of nodejs;
 
 @JS()
-external set _events(NativeJsObject value);
-@JS()
 external NativeJsObject get _events;
+@JS()
+external set _events(NativeJsObject value);
 
 void _requireEvents() {
   if (_events == null) {
@@ -16,19 +16,19 @@ void _requireEvents() {
 
 @JS('_events.EventEmitter')
 class NativeJsEventEmitter {
-  external NativeJsEventEmitter();
-
   external static int get defaultMaxListeners;
 
-  external int getMaxListeners();
-  external void setMaxListeners(int value);
+  external NativeJsEventEmitter();
+
   external bool emit(String event, [dynamic arguments]);
-  external void on(String eventName, Function function);
-  external void once(String eventName, Function function);
+  external int getMaxListeners();
   external void listenerCount(String eventName);
   external void listeners(String eventName);
+  external void on(String eventName, Function function);
+  external void once(String eventName, Function function);
   external void removeAllListeners([String eventName]);
   external void removeListener(String eventName, Function function);
+  external void setMaxListeners(int value);
 }
 
 class EventEmitter {
@@ -54,15 +54,46 @@ class EventEmitter {
       arguments == null
           ? _eventEmitter.emit(eventName)
           : _eventEmitter.emit(eventName, arguments);
+  void listenerCount(String eventName) =>
+      _eventEmitter.listenerCount(eventName);
+  void listeners(String eventName) => _eventEmitter.listeners(eventName);
   void on(String eventName, Function function) =>
       _eventEmitter.on(eventName, allowInterop(function));
   void once(String eventName, Function function) =>
       _eventEmitter.once(eventName, allowInterop(function));
-  void listenerCount(String eventName) =>
-      _eventEmitter.listenerCount(eventName);
-  void listeners(String eventName) => _eventEmitter.listeners(eventName);
   void removeAllListeners([String eventName]) =>
       _eventEmitter.removeAllListeners(eventName);
   void removeListener(String eventName, Function function) =>
       _eventEmitter.removeListener(eventName, allowInterop(function));
+
+  EventEmitterGlue<dynamic> makeGlue(String event, [Function callback]) {
+    return new EventEmitterGlue<dynamic>(this, event, callback);
+  }
+}
+
+class EventEmitterGlue<T> {
+  EventEmitter _emitter;
+
+  StreamController<T> _controller;
+
+  EventEmitterGlue(this._emitter, String event, [Function callback]) {
+    _controller = new StreamController<T>(sync: true);
+    if (callback is Function) {
+      _emitter.on(event, callback);
+    } else {
+      _emitter.on(event, defConverter);
+    }
+  }
+
+  Stream<T> get stream => _controller.stream;
+
+  void add([T el]) {
+    _controller.add(el);
+  }
+
+  void defConverter([dynamic a, dynamic b, dynamic c, dynamic d]) => add();
+
+  Future<Null> destroy() async {
+    await _controller.close();
+  }
 }
