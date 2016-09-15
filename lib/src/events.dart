@@ -1,4 +1,4 @@
-// Copyright (c) 2016, GrimShield. All rights reserved. Use of this source code
+// Copyright (c) 2016, electron.dart. All rights reserved. Use of this source code
 // is governed by a BSD-style license that can be found in the LICENSE file.
 
 part of nodejs;
@@ -48,7 +48,7 @@ class EventEmitter {
       NativeJsEventEmitter.defaultMaxListeners;
 
   int get getMaxListeners => _eventEmitter.getMaxListeners();
-  set setMaxListeners(dynamic value) => _eventEmitter.setMaxListeners(value);
+  set setMaxListeners(int value) => _eventEmitter.setMaxListeners(value);
 
   bool emit(String eventName, [List<String> arguments = null]) =>
       arguments == null

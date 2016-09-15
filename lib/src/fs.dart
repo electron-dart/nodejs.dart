@@ -1,4 +1,4 @@
-// Copyright (c) 2016, GrimShield. All rights reserved. Use of this source code
+// Copyright (c) 2016, electron.dart. All rights reserved. Use of this source code
 // is governed by a BSD-style license that can be found in the LICENSE file.
 
 part of nodejs;
@@ -108,7 +108,9 @@ class CreateStreamOptions {
 }
 
 @JS('_fs')
-class NativeJsFs {
+class NativeJsFs extends NativeJsObject {
+  external factory NativeJsFs();
+
   external int get fOk;
   external int get rOk;
   external int get wOk;
@@ -184,15 +186,11 @@ class FsAccessSyncError extends FsError {
 }
 
 class FileReference {
-  final String _path;
-  final int _fd;
+  final String path;
+  final int fd;
 
-  FileReference.path(String path)
-      : _path = path,
-        _fd = null;
-  FileReference.fd(int fd)
-      : _path = null,
-        _fd = fd;
+  FileReference.fromPath(this.path) : fd = null;
+  FileReference.fromFd(this.fd) : path = null;
 }
 
 class Fs {
@@ -230,7 +228,7 @@ class Fs {
   }
 
   Future<FsError> _appendFileInternal(
-      dynamic file, dynamic data, dynamic options) {
+      dynamic file, dynamic data, FsAppendFileOptions options) {
     Completer<FsError> completer = new Completer<FsError>();
     _jsFs.appendFile(file, data, options, allowInterop((NativeJsFsError error) {
       if (error != null) {

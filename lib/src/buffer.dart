@@ -1,4 +1,4 @@
-// Copyright (c) 2016, GrimShield. All rights reserved. Use of this source code
+// Copyright (c) 2016, electron.dart. All rights reserved. Use of this source code
 // is governed by a BSD-style license that can be found in the LICENSE file.
 
 part of nodejs;
@@ -6,7 +6,7 @@ part of nodejs;
 @JS('setObjectValueAtIndex')
 external void _setObjectValueAtIndex(dynamic object, int index, dynamic value);
 @JS('getObjectValueAtIndex')
-external void _getObjectValueAtIndex(dynamic object, int index);
+external num _getObjectValueAtIndex(dynamic object, int index);
 
 @JS('Buffer.compare')
 external int _bufferCompare(NativeJsBuffer buffer1, NativeJsBuffer buffer2);
@@ -81,7 +81,7 @@ class Buffer {
       _bufferCompare(buffer1._buffer, buffer2._buffer);
   static Buffer concat(List<Buffer> buffers, [int totalLength]) {
     List<NativeJsBuffer> jsBuffers =
-        buffers.map((Buffer buffer) => buffer._buffer);
+        buffers.map((Buffer buffer) => buffer._buffer).toList();
     return new Buffer.FromNativeJsBuffer(
         NativeJsBuffer.concat(jsBuffers, totalLength));
   }
@@ -94,7 +94,7 @@ class Buffer {
     _setObjectValueAtIndex(_buffer, index, value);
   }
 
-  dynamic operator [](int index) {
+  num operator [](int index) {
     return _getObjectValueAtIndex(_buffer, index);
   }
 
