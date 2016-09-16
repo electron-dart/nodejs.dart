@@ -55,7 +55,7 @@ class ChildProcessExecOptions {
       int gid})
       : _nativeJs = new NativeJsChildProcessExecOptions(
             cwd: cwd,
-            env: env?.jsObject,
+            env: env?._jsObject,
             encoding: encoding,
             shell: shell,
             timeout: timeout,
@@ -131,7 +131,7 @@ class ChildProcessExecFileOptions {
       int gid})
       : _nativeJs = new NativeJsChildProcessExecFileOptions(
             cwd: cwd,
-            env: env?.jsObject,
+            env: env?._jsObject,
             encoding: encoding,
             timeout: timeout,
             maxBuffer: maxBuffer,
@@ -199,7 +199,7 @@ class ChildProcessForkOptions {
       int gid})
       : _nativeJs = new NativeJsChildProcessForkOptions(
             cwd: cwd,
-            env: env?.jsObject,
+            env: env?._jsObject,
             execPath: execPath,
             execArgv: execArgv,
             silent: silent,
@@ -258,7 +258,7 @@ class ChildProcessSpawnOptions {
       dynamic shell: true})
       : _nativeJs = new NativeJsChildProcessSpawnOptions(
             cwd: cwd,
-            env: env?.jsObject,
+            env: env?._jsObject,
             stdio: stdio,
             detached: detached,
             uid: uid,
@@ -328,7 +328,7 @@ class ChildProcessExecFileSyncOptions {
             cwd: cwd,
             input: input,
             stdio: stdio,
-            env: env?.jsObject,
+            env: env?._jsObject,
             uid: uid,
             gid: gid,
             timeout: timeout,
@@ -400,7 +400,7 @@ class ChildProcessExecSyncOptions {
             cwd: cwd,
             input: input,
             stdio: stdio,
-            env: env?.jsObject,
+            env: env?._jsObject,
             shell: shell ?? false,
             uid: uid,
             gid: gid,
@@ -475,7 +475,7 @@ class ChildProcessSpawnSyncOptions {
             cwd: cwd,
             input: input,
             stdio: stdio,
-            env: env?.jsObject,
+            env: env?._jsObject,
             uid: uid,
             gid: gid,
             timeout: timeout,
@@ -619,9 +619,9 @@ class ChildProcess extends EventEmitter {
       Function callback]) {
     if (callback != null) {
       return _childProcess.send(
-          message.jsObject, sendHandle, options, allowInterop(callback));
+          message._jsObject, sendHandle, options, allowInterop(callback));
     }
-    return _childProcess.send(message.jsObject, sendHandle, options);
+    return _childProcess.send(message._jsObject, sendHandle, options);
   }
 
   void _onClose(int code, String signal) =>
