@@ -77,22 +77,24 @@ class NativeJsObject {
 }
 
 class DartJsObject {
-  NativeJsObject jsObject;
+  NativeJsObject _jsObject;
   Map<String, dynamic> _data;
 
   DartJsObject([Map<String, dynamic> fields]) {
-    jsObject = new NativeJsObject(convertMapToNativeJsObject(fields));
+    _jsObject = new NativeJsObject(convertMapToNativeJsObject(fields));
     _data = fields;
   }
 
-  DartJsObject.fromNativeJsObject(this.jsObject) {
-    _data = convertNativeJsObjectToMap(jsObject);
+  DartJsObject.fromNativeJsObject(this._jsObject) {
+    _data = convertNativeJsObjectToMap(_jsObject);
   }
+
+  NativeJsObject get nativeJs => _jsObject;
 
   static void defineProperty(
       DartJsObject object, String key, Description description) {
     NativeJsObject.defineProperty(
-        object.jsObject, key, description._description);
+        object._jsObject, key, description._description);
     object._data[key] = description._description.value;
   }
 

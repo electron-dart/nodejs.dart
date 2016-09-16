@@ -69,6 +69,8 @@ class ProcessUnhandledRejection {
 }
 
 class Process extends EventEmitter {
+  NativeJsProcess _process;
+
   StreamController<Null> _sigUsr1;
   StreamController<Null> _sigPipe;
   StreamController<Null> _sigHup;
@@ -83,10 +85,14 @@ class Process extends EventEmitter {
   StreamController<dynamic> _uncaughtException;
   StreamController<ProcessUnhandledRejection> _unhandledRejection;
 
-  Process.fromJSProcess(NativeJsProcess _process)
-      : super.fromNativeJsEventEmitter(_process) {
+  Process.fromJSProcess(NativeJsProcess process)
+      : super.fromNativeJsEventEmitter(process) {
+    _process = process;
     _initAllStreamController();
   }
+
+  @override
+  NativeJsProcess get nativeJs => _process;
 
   List<String> get arch => NativeJsProcess.arch;
   List<String> get argv => NativeJsProcess.argv;

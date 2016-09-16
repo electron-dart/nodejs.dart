@@ -26,7 +26,7 @@ class Writable extends EventEmitter {
   Writable() {
     _requireStream();
     _writable = new NativeJsWritable();
-    _eventEmitter = _writable;
+    _eventemitter = _writable;
     _initAllStreamController();
   }
 
@@ -36,6 +36,9 @@ class Writable extends EventEmitter {
     _writable = writable;
     _initAllStreamController();
   }
+
+  @override
+  NativeJsWritable get nativeJs => _writable;
 
   set defaultEncoding(String value) => _writable.setDefaultEncoding(value);
 

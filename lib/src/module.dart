@@ -21,6 +21,8 @@ class Module {
 
   Module.fromJSModule(this._module);
 
+  NativeJsModule get nativeJs => _module;
+
   String get id => _module.id;
   DartJsObject get exports =>
       new DartJsObject.fromNativeJsObject(_module.exports);

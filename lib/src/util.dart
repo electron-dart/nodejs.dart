@@ -47,7 +47,9 @@ class Util {
     _requireUtil();
   }
 
+  NativeJsUtil get antiveJs => _util;
+
   String inspect(DartJsObject object, InspectOptions options) =>
-      _util.inspect(object.jsObject, options);
+      _util.inspect(object._jsObject, options);
   void log(String message) => _util.log(message);
 }

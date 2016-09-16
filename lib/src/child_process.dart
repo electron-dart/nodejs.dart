@@ -41,7 +41,7 @@ class NativeJsChildProcessExecOptions {
 }
 
 class ChildProcessExecOptions {
-  final NativeJsChildProcessExecOptions _options;
+  final NativeJsChildProcessExecOptions _nativeJs;
 
   ChildProcessExecOptions(
       {String cwd,
@@ -53,7 +53,7 @@ class ChildProcessExecOptions {
       String killSignal: "SIGTERM",
       int uid,
       int gid})
-      : _options = new NativeJsChildProcessExecOptions(
+      : _nativeJs = new NativeJsChildProcessExecOptions(
             cwd: cwd,
             env: env?.jsObject,
             encoding: encoding,
@@ -63,6 +63,8 @@ class ChildProcessExecOptions {
             killSignal: killSignal,
             uid: uid,
             gid: gid);
+
+  NativeJsChildProcessExecOptions get nativeJs => _nativeJs;
 }
 
 final ChildProcessExecOptions _defaultChildProcessExecOptions =
@@ -82,11 +84,11 @@ ChildProcess exec(String command,
       child = new ChildProcess.fromNativeJsChildProcess(_exec(command));
     } else {
       child = new ChildProcess.fromNativeJsChildProcess(
-          _exec(command, options._options));
+          _exec(command, options._nativeJs));
     }
   } else {
     child = new ChildProcess.fromNativeJsChildProcess(
-        _exec(command, options._options, allowInterop(callback)));
+        _exec(command, options._nativeJs, allowInterop(callback)));
   }
   return child;
 }
@@ -115,7 +117,7 @@ class NativeJsChildProcessExecFileOptions {
 }
 
 class ChildProcessExecFileOptions {
-  final NativeJsChildProcessExecFileOptions _options;
+  final NativeJsChildProcessExecFileOptions _nativeJs;
 
   ChildProcessExecFileOptions(
       {String cwd,
@@ -127,7 +129,7 @@ class ChildProcessExecFileOptions {
       String killSignal: "SIGTERM",
       int uid,
       int gid})
-      : _options = new NativeJsChildProcessExecFileOptions(
+      : _nativeJs = new NativeJsChildProcessExecFileOptions(
             cwd: cwd,
             env: env?.jsObject,
             encoding: encoding,
@@ -136,6 +138,8 @@ class ChildProcessExecFileOptions {
             killSignal: killSignal,
             uid: uid,
             gid: gid);
+
+  NativeJsChildProcessExecFileOptions get nativeJs => _nativeJs;
 }
 
 final ChildProcessExecFileOptions _defaultChildProcessExecFileOptions =
@@ -155,10 +159,10 @@ ChildProcess execFile(String file,
   if (options == null) options = _defaultChildProcessExecFileOptions;
   if (callback == null) {
     return new ChildProcess.fromNativeJsChildProcess(
-        _execFile(file, args, options._options));
+        _execFile(file, args, options._nativeJs));
   }
   return new ChildProcess.fromNativeJsChildProcess(
-      _execFile(file, args, options._options, allowInterop(callback)));
+      _execFile(file, args, options._nativeJs, allowInterop(callback)));
 }
 
 @JS()
@@ -183,7 +187,7 @@ class NativeJsChildProcessForkOptions {
 }
 
 class ChildProcessForkOptions {
-  final NativeJsChildProcessForkOptions _options;
+  final NativeJsChildProcessForkOptions _nativeJs;
 
   ChildProcessForkOptions(
       {String cwd,
@@ -193,7 +197,7 @@ class ChildProcessForkOptions {
       bool silent,
       int uid,
       int gid})
-      : _options = new NativeJsChildProcessForkOptions(
+      : _nativeJs = new NativeJsChildProcessForkOptions(
             cwd: cwd,
             env: env?.jsObject,
             execPath: execPath,
@@ -201,6 +205,8 @@ class ChildProcessForkOptions {
             silent: silent,
             uid: uid,
             gid: gid);
+
+  NativeJsChildProcessForkOptions get nativeJs => _nativeJs;
 }
 
 final ChildProcessForkOptions _defaultChildProcessForkOptions =
@@ -215,7 +221,7 @@ ChildProcess fork(String modulePath,
   _requireChildProcess();
   if (options == null) options = _defaultChildProcessForkOptions;
   return new ChildProcess.fromNativeJsChildProcess(
-      _fork(modulePath, args, options._options));
+      _fork(modulePath, args, options._nativeJs));
 }
 
 @JS()
@@ -240,7 +246,7 @@ class NativeJsChildProcessSpawnOptions {
 }
 
 class ChildProcessSpawnOptions {
-  final NativeJsChildProcessSpawnOptions _options;
+  final NativeJsChildProcessSpawnOptions _nativeJs;
 
   ChildProcessSpawnOptions(
       {String cwd,
@@ -250,7 +256,7 @@ class ChildProcessSpawnOptions {
       int uid,
       int gid,
       dynamic shell: true})
-      : _options = new NativeJsChildProcessSpawnOptions(
+      : _nativeJs = new NativeJsChildProcessSpawnOptions(
             cwd: cwd,
             env: env?.jsObject,
             stdio: stdio,
@@ -258,6 +264,8 @@ class ChildProcessSpawnOptions {
             uid: uid,
             gid: gid,
             shell: shell);
+
+  NativeJsChildProcessSpawnOptions get nativeJs => _nativeJs;
 }
 
 final ChildProcessSpawnOptions _defaultChildProcessSpawnOptions =
@@ -272,7 +280,7 @@ ChildProcess spawn(String command,
   _requireChildProcess();
   if (options == null) options = _defaultChildProcessSpawnOptions;
   return new ChildProcess.fromNativeJsChildProcess(
-      _spawn(command, args, options._options));
+      _spawn(command, args, options._nativeJs));
 }
 
 @JS()
@@ -303,7 +311,7 @@ class NativeJsChildProcessExecFileSyncOptions {
 }
 
 class ChildProcessExecFileSyncOptions {
-  final NativeJsChildProcessExecFileSyncOptions _options;
+  final NativeJsChildProcessExecFileSyncOptions _nativeJs;
 
   ChildProcessExecFileSyncOptions(
       {String cwd,
@@ -316,7 +324,7 @@ class ChildProcessExecFileSyncOptions {
       String killSignal: 'SIGTERM',
       int maxBuffer,
       String encoding})
-      : _options = new NativeJsChildProcessExecFileSyncOptions(
+      : _nativeJs = new NativeJsChildProcessExecFileSyncOptions(
             cwd: cwd,
             input: input,
             stdio: stdio,
@@ -326,6 +334,8 @@ class ChildProcessExecFileSyncOptions {
             timeout: timeout,
             killSignal: killSignal,
             encoding: encoding);
+
+  NativeJsChildProcessExecFileSyncOptions get nativeJs => _nativeJs;
 }
 
 final ChildProcessExecFileSyncOptions _defaultChildProcessExecFileSyncOptions =
@@ -339,7 +349,7 @@ dynamic execFileSync(String file,
     {List<String> args, ChildProcessExecFileSyncOptions options}) {
   _requireChildProcess();
   if (options == null) options = _defaultChildProcessExecFileSyncOptions;
-  return _execFileSync(file, args, options._options);
+  return _execFileSync(file, args, options._nativeJs);
 }
 
 @JS()
@@ -372,7 +382,7 @@ class NativeJsChildProcessExecSyncOptions {
 }
 
 class ChildProcessExecSyncOptions {
-  final NativeJsChildProcessExecSyncOptions _options;
+  final NativeJsChildProcessExecSyncOptions _nativeJs;
 
   ChildProcessExecSyncOptions(
       {String cwd,
@@ -386,7 +396,7 @@ class ChildProcessExecSyncOptions {
       String killSignal: "SIGTERM",
       int maxBuffer,
       String encoding})
-      : _options = new NativeJsChildProcessExecSyncOptions(
+      : _nativeJs = new NativeJsChildProcessExecSyncOptions(
             cwd: cwd,
             input: input,
             stdio: stdio,
@@ -398,6 +408,8 @@ class ChildProcessExecSyncOptions {
             killSignal: killSignal,
             maxBuffer: maxBuffer,
             encoding: encoding);
+
+  NativeJsChildProcessExecSyncOptions get nativeJs => _nativeJs;
 }
 
 final ChildProcessExecSyncOptions _defaultChildProcessExecSyncOptions =
@@ -412,7 +424,7 @@ dynamic execSync(String command,
   _requireChildProcess();
   if (options == null) options = _defaultChildProcessExecSyncOptions;
 
-  return _execSync(command, args, options._options);
+  return _execSync(command, args, options._nativeJs);
 }
 
 @JS()
@@ -445,7 +457,7 @@ class NativeJsChildProcessSpawnSyncOptions {
 }
 
 class ChildProcessSpawnSyncOptions {
-  final NativeJsChildProcessSpawnSyncOptions _options;
+  final NativeJsChildProcessSpawnSyncOptions _nativeJs;
 
   ChildProcessSpawnSyncOptions(
       {String cwd,
@@ -459,7 +471,7 @@ class ChildProcessSpawnSyncOptions {
       int maxBuffer,
       String encoding,
       dynamic shell: false})
-      : _options = new NativeJsChildProcessSpawnSyncOptions(
+      : _nativeJs = new NativeJsChildProcessSpawnSyncOptions(
             cwd: cwd,
             input: input,
             stdio: stdio,
@@ -470,6 +482,8 @@ class ChildProcessSpawnSyncOptions {
             killSignal: killSignal,
             encoding: encoding,
             shell: shell);
+
+  NativeJsChildProcessSpawnSyncOptions get nativeJs => _nativeJs;
 }
 
 final ChildProcessSpawnSyncOptions _defaultChildProcessSpawnSyncOptions =
@@ -490,30 +504,32 @@ class NativeJsSpawnSyncResult {
 }
 
 class SpawnSyncResult {
-  final NativeJsSpawnSyncResult _result;
+  final NativeJsSpawnSyncResult _nativeJs;
 
-  SpawnSyncResult.fromNativeJsSpawnSyncResult(this._result);
+  SpawnSyncResult.fromNativeJsSpawnSyncResult(this._nativeJs);
 
-  int get pid => _result.pid;
-  List<dynamic> get output => _result.output;
-  dynamic get stdout => _result.stdout;
-  dynamic get stderr => _result.stderr;
-  int get status => _result.status;
-  String get signal => _result.signal;
-  Error get error => new Error.fromNativeJsError(_result.error);
+  NativeJsSpawnSyncResult get nativeJs => _nativeJs;
+
+  int get pid => _nativeJs.pid;
+  List<dynamic> get output => _nativeJs.output;
+  dynamic get stdout => _nativeJs.stdout;
+  dynamic get stderr => _nativeJs.stderr;
+  int get status => _nativeJs.status;
+  String get signal => _nativeJs.signal;
+  Error get error => new Error.fromNativeJsError(_nativeJs.error);
 }
 
 @JS('_child_process.spawnSync')
 external NativeJsSpawnSyncResult _spawnSync(String file,
     [List<String> args, NativeJsChildProcessSpawnSyncOptions options]);
 
-dynamic spawnSync(String file,
+SpawnSyncResult spawnSync(String file,
     {List<String> args, ChildProcessSpawnSyncOptions options}) {
   _requireChildProcess();
   if (args == null) args = <String>[];
   if (options == null) options = _defaultChildProcessSpawnSyncOptions;
   return new SpawnSyncResult.fromNativeJsSpawnSyncResult(
-      _spawnSync(file, args, options._options));
+      _spawnSync(file, args, options._nativeJs));
 }
 
 @JS()
@@ -562,7 +578,7 @@ class ChildProcessMessageEvent {
 }
 
 class ChildProcess extends EventEmitter {
-  NativeJsChildProcess _childprocess;
+  NativeJsChildProcess _childProcess;
 
   StreamController<ChildProcessCloseEvent> _close;
   StreamController<Null> _disconnect;
@@ -573,18 +589,21 @@ class ChildProcess extends EventEmitter {
   ChildProcess.fromNativeJsChildProcess(NativeJsChildProcess _childProcess)
       : super.fromNativeJsEventEmitter(_childProcess) {
     _requireChildProcess();
-    _childprocess = _childProcess;
+    _eventemitter = _childProcess;
     _initAllStreamController();
   }
 
-  bool get connected => _childprocess.connected;
-  int get pid => _childprocess.pid;
+  @override
+  NativeJsChildProcess get nativeJs => _childProcess;
+
+  bool get connected => _childProcess.connected;
+  int get pid => _childProcess.pid;
   Readable get stderr =>
-      new Readable.fromNativeJsReadable(_childprocess.stderr);
-  Writable get stdin => new Writable.fromNativeJsWritable(_childprocess.stdin);
-  List<dynamic> get stdio => _childprocess.stdio;
+      new Readable.fromNativeJsReadable(_childProcess.stderr);
+  Writable get stdin => new Writable.fromNativeJsWritable(_childProcess.stdin);
+  List<dynamic> get stdio => _childProcess.stdio;
   Readable get stdout =>
-      new Readable.fromNativeJsReadable(_childprocess.stdout);
+      new Readable.fromNativeJsReadable(_childProcess.stdout);
 
   Stream<ChildProcessCloseEvent> get onClose => _close.stream;
   Stream<Null> get onDisconnect => _disconnect.stream;
@@ -592,17 +611,17 @@ class ChildProcess extends EventEmitter {
   Stream<ChildProcessExitEvent> get onExit => _exit.stream;
   Stream<ChildProcessMessageEvent> get onMessage => _message.stream;
 
-  void disconnect() => _childprocess.disconnect();
-  void kill([String signal = "SIGTERM"]) => _childprocess.kill(signal);
+  void disconnect() => _childProcess.disconnect();
+  void kill([String signal = "SIGTERM"]) => _childProcess.kill(signal);
   bool send(DartJsObject message,
       [dynamic sendHandle,
       ChildProcessSendOptions options,
       Function callback]) {
     if (callback != null) {
-      return _childprocess.send(
+      return _childProcess.send(
           message.jsObject, sendHandle, options, allowInterop(callback));
     }
-    return _childprocess.send(message.jsObject, sendHandle, options);
+    return _childProcess.send(message.jsObject, sendHandle, options);
   }
 
   void _onClose(int code, String signal) =>

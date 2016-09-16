@@ -55,6 +55,9 @@ class ReadStream extends Readable {
     _initAllStreamController();
   }
 
+  @override
+  NativeJsReadStream get nativeJs => _readStream;
+
   String get path => _readStream.path;
   Stream<int> get onOpen => _open.stream;
 
@@ -79,6 +82,9 @@ class WriteStream extends Writable {
     _writeStream = writeStream;
     _initAllStreamController();
   }
+
+  @override
+  NativeJsWriteStream get nativeJs => _writeStream;
 
   String get path => _writeStream.path;
   int get bytesWritten => _writeStream.bytesWritten;
@@ -158,6 +164,9 @@ class FsError extends Error {
   }
 
   @override
+  NativeJsFsError get nativeJs => _fsError;
+
+  @override
   String toString() {
     return 'FsError: ${_fsError.code}: $_description, ${_fsError.syscall}';
   }
@@ -182,6 +191,9 @@ class FsAccessSyncError extends FsError {
   }
 
   @override
+  NativeJsFsAccessSyncError get nativeJs => _jsAccessSyncError;
+
+  @override
   String toString() => super.toString() + " " + _jsAccessSyncError.path;
 }
 
@@ -197,6 +209,8 @@ class Fs {
   NativeJsFs _jsFs;
 
   Fs.fromNativeJsFs(this._jsFs);
+
+  NativeJsFs get nativeJs => _jsFs;
 
   int get fOk => _jsFs.fOk;
   int get rOk => _jsFs.rOk;

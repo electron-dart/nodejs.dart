@@ -16,9 +16,9 @@ void _requireEvents() {
 
 @JS('_events.EventEmitter')
 class NativeJsEventEmitter {
-  external static int get defaultMaxListeners;
-
   external NativeJsEventEmitter();
+
+  external static int get defaultMaxListeners;
 
   external bool emit(String event, [dynamic arguments]);
   external int getMaxListeners();
@@ -32,39 +32,41 @@ class NativeJsEventEmitter {
 }
 
 class EventEmitter {
-  NativeJsEventEmitter _eventEmitter;
+  NativeJsEventEmitter _eventemitter;
 
   EventEmitter() {
     _requireEvents();
-    _eventEmitter = new NativeJsEventEmitter();
+    _eventemitter = new NativeJsEventEmitter();
   }
 
   EventEmitter.fromNativeJsEventEmitter(NativeJsEventEmitter eventEmitter) {
     _requireEvents();
-    _eventEmitter = eventEmitter;
+    _eventemitter = eventEmitter;
   }
+
+  NativeJsEventEmitter get nativeJs => _eventemitter;
 
   static int get defaultMaxListeners =>
       NativeJsEventEmitter.defaultMaxListeners;
 
-  int get getMaxListeners => _eventEmitter.getMaxListeners();
-  set setMaxListeners(int value) => _eventEmitter.setMaxListeners(value);
+  int get getMaxListeners => _eventemitter.getMaxListeners();
+  set setMaxListeners(int value) => _eventemitter.setMaxListeners(value);
 
   bool emit(String eventName, [List<String> arguments = null]) =>
       arguments == null
-          ? _eventEmitter.emit(eventName)
-          : _eventEmitter.emit(eventName, arguments);
+          ? _eventemitter.emit(eventName)
+          : _eventemitter.emit(eventName, arguments);
   void listenerCount(String eventName) =>
-      _eventEmitter.listenerCount(eventName);
-  void listeners(String eventName) => _eventEmitter.listeners(eventName);
+      _eventemitter.listenerCount(eventName);
+  void listeners(String eventName) => _eventemitter.listeners(eventName);
   void on(String eventName, Function function) =>
-      _eventEmitter.on(eventName, allowInterop(function));
+      _eventemitter.on(eventName, allowInterop(function));
   void once(String eventName, Function function) =>
-      _eventEmitter.once(eventName, allowInterop(function));
+      _eventemitter.once(eventName, allowInterop(function));
   void removeAllListeners([String eventName]) =>
-      _eventEmitter.removeAllListeners(eventName);
+      _eventemitter.removeAllListeners(eventName);
   void removeListener(String eventName, Function function) =>
-      _eventEmitter.removeListener(eventName, allowInterop(function));
+      _eventemitter.removeListener(eventName, allowInterop(function));
 
   EventEmitterGlue<dynamic> makeGlue(String event, [Function callback]) {
     return new EventEmitterGlue<dynamic>(this, event, callback);

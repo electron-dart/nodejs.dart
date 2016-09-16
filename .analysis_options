@@ -40,4 +40,4 @@ linter:
     - package_names
 
 analyzer:
-  strong-mode: true
+  strong-mode: false
