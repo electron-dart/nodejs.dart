@@ -89,7 +89,7 @@ class DartJsObject {
     _data = convertNativeJsObjectToMap(_jsObject);
   }
 
-  NativeJsObject get nativeJs => _jsObject;
+  NativeJsObject get nativeJsObject => _jsObject;
 
   static void defineProperty(
       DartJsObject object, String key, Description description) {

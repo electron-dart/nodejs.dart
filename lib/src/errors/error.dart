@@ -54,7 +54,7 @@ class Error extends TracableStack {
 
   Error.fromNativeJsError(this._error);
 
-  NativeJsError get nativeJs => _error;
+  NativeJsError get nativeJsError => _error;
 
   static int get stackTraceLimit => NativeJsError.stackTraceLimit;
   static set stackTraceLimit(int value) {

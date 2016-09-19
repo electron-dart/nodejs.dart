@@ -45,45 +45,45 @@ class BufferEncoding {
 }
 
 class Buffer {
-  NativeJsBuffer _nativeJs;
+  NativeJsBuffer _buffer;
 
   Buffer.alloc(int size, [dynamic fill = null, String encoding = 'utf8']) {
-    _nativeJs = NativeJsBuffer.alloc(size, fill, encoding);
+    _buffer = NativeJsBuffer.alloc(size, fill, encoding);
   }
 
   Buffer.allocUnsafe(int size) {
-    _nativeJs = NativeJsBuffer.allocUnsafe(size);
+    _buffer = NativeJsBuffer.allocUnsafe(size);
   }
 
   Buffer.fromList(List<num> list) {
-    _nativeJs = NativeJsBuffer.from(list);
+    _buffer = NativeJsBuffer.from(list);
   }
 
   Buffer.fromArrayBuffer(ByteBuffer byteBuffer,
       [int byteOffset = 0, int length]) {
     if (length == null) length = byteBuffer.lengthInBytes - byteOffset;
-    _nativeJs = NativeJsBuffer.from(byteBuffer);
+    _buffer = NativeJsBuffer.from(byteBuffer);
   }
 
   Buffer.fromBuffer(Buffer buffer) {
-    _nativeJs = NativeJsBuffer.from(buffer._nativeJs);
+    _buffer = NativeJsBuffer.from(buffer._buffer);
   }
 
   Buffer.fromStringWithEncoding(String str, [String encoding = 'utf8']) {
-    _nativeJs = NativeJsBuffer.from(str, encoding);
+    _buffer = NativeJsBuffer.from(str, encoding);
   }
 
-  Buffer.FromNativeJsBuffer(this._nativeJs);
+  Buffer.FromNativeJsBuffer(this._buffer);
 
-  NativeJsBuffer get nativeJs => _nativeJs;
+  NativeJsBuffer get nativeJsBuffer => _buffer;
 
   static int byteLength(dynamic object, [String encoding = 'utf8']) =>
       NativeJsBuffer.byteLength(object, encoding);
   static int compareTwoBuffer(Buffer buffer1, Buffer buffer2) =>
-      _bufferCompare(buffer1._nativeJs, buffer2._nativeJs);
+      _bufferCompare(buffer1._buffer, buffer2._buffer);
   static Buffer concat(List<Buffer> buffers, [int totalLength]) {
     List<NativeJsBuffer> jsBuffers =
-        buffers.map((Buffer buffer) => buffer._nativeJs).toList();
+        buffers.map((Buffer buffer) => buffer._buffer).toList();
     return new Buffer.FromNativeJsBuffer(
         NativeJsBuffer.concat(jsBuffers, totalLength));
   }
@@ -93,20 +93,20 @@ class Buffer {
       NativeJsBuffer.isEncoding(encoding);
 
   void operator []=(int index, dynamic value) {
-    _setObjectValueAtIndex(_nativeJs, index, value);
+    _setObjectValueAtIndex(_buffer, index, value);
   }
 
   num operator [](int index) {
-    return _getObjectValueAtIndex(_nativeJs, index);
+    return _getObjectValueAtIndex(_buffer, index);
   }
 
-  int compare(Buffer otherBuffer) => _nativeJs.compare(otherBuffer._nativeJs);
+  int compare(Buffer otherBuffer) => _buffer.compare(otherBuffer._buffer);
 
   int copy(Buffer targetBuffer,
       [int targetStart = 0, int sourceStart = 0, int sourceEnd]) {
     if (sourceEnd == null) sourceEnd = length;
-    return _nativeJs.copy(
-        targetBuffer._nativeJs, targetStart, sourceStart, sourceEnd);
+    return _buffer.copy(
+        targetBuffer._buffer, targetStart, sourceStart, sourceEnd);
   }
 
   Iterable<dynamic> entries() sync* {
@@ -115,11 +115,11 @@ class Buffer {
     }
   }
 
-  int get length => _nativeJs.length;
+  int get length => _buffer.length;
 
   @override
   String toString([String encoding = 'utf8', int start = 0, int end]) {
-    if (end == null) end = _nativeJs.length;
-    return _nativeJs.toString(encoding, start, end);
+    if (end == null) end = _buffer.length;
+    return _buffer.toString(encoding, start, end);
   }
 }

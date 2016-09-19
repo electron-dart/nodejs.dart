@@ -55,8 +55,7 @@ class ReadStream extends Readable {
     _initAllStreamController();
   }
 
-  @override
-  NativeJsReadStream get nativeJs => _readStream;
+  NativeJsReadStream get nativeJsReadStream => _readStream;
 
   String get path => _readStream.path;
   Stream<int> get onOpen => _open.stream;
@@ -83,8 +82,7 @@ class WriteStream extends Writable {
     _initAllStreamController();
   }
 
-  @override
-  NativeJsWriteStream get nativeJs => _writeStream;
+  NativeJsWriteStream get nativeJsWriteStream => _writeStream;
 
   String get path => _writeStream.path;
   int get bytesWritten => _writeStream.bytesWritten;
@@ -163,8 +161,7 @@ class FsError extends Error {
     }
   }
 
-  @override
-  NativeJsFsError get nativeJs => _fsError;
+  NativeJsFsError get nativeJsFsError => _fsError;
 
   @override
   String toString() {
@@ -190,8 +187,7 @@ class FsAccessSyncError extends FsError {
     _jsAccessSyncError = jsAccessSyncError;
   }
 
-  @override
-  NativeJsFsAccessSyncError get nativeJs => _jsAccessSyncError;
+  NativeJsFsAccessSyncError get nativeJsFsAccessSyncError => _jsAccessSyncError;
 
   @override
   String toString() => super.toString() + " " + _jsAccessSyncError.path;
@@ -210,7 +206,7 @@ class Fs {
 
   Fs.fromNativeJsFs(this._jsFs);
 
-  NativeJsFs get nativeJs => _jsFs;
+  NativeJsFs get nativeJsFs => _jsFs;
 
   int get fOk => _jsFs.fOk;
   int get rOk => _jsFs.rOk;

@@ -91,8 +91,7 @@ class Process extends EventEmitter {
     _initAllStreamController();
   }
 
-  @override
-  NativeJsProcess get nativeJs => _process;
+  NativeJsProcess get nativeJsProcews => _process;
 
   List<String> get arch => NativeJsProcess.arch;
   List<String> get argv => NativeJsProcess.argv;

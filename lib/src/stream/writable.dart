@@ -37,8 +37,7 @@ class Writable extends EventEmitter {
     _initAllStreamController();
   }
 
-  @override
-  NativeJsWritable get nativeJs => _writable;
+  NativeJsWritable get nativeJsWritable => _writable;
 
   set defaultEncoding(String value) => _writable.setDefaultEncoding(value);
 

@@ -40,8 +40,7 @@ class Readable extends EventEmitter {
     _initAllStreamController();
   }
 
-  @override
-  NativeJsReadable get nativeJs => _readable;
+  NativeJsReadable get nativeJsReadable => _readable;
 
   set encoding(String encoding) => _readable.setEncoding(encoding);
 

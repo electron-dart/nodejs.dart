@@ -44,7 +44,7 @@ class EventEmitter {
     _eventemitter = eventEmitter;
   }
 
-  NativeJsEventEmitter get nativeJs => _eventemitter;
+  NativeJsEventEmitter get nativeJsEventEmitter => _eventemitter;
 
   static int get defaultMaxListeners =>
       NativeJsEventEmitter.defaultMaxListeners;

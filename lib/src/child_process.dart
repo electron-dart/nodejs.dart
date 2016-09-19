@@ -64,7 +64,8 @@ class ChildProcessExecOptions {
             uid: uid,
             gid: gid);
 
-  NativeJsChildProcessExecOptions get nativeJs => _nativeJs;
+  NativeJsChildProcessExecOptions get nativeJsChildProcessExecOptions =>
+      _nativeJs;
 }
 
 final ChildProcessExecOptions _defaultChildProcessExecOptions =
@@ -139,7 +140,8 @@ class ChildProcessExecFileOptions {
             uid: uid,
             gid: gid);
 
-  NativeJsChildProcessExecFileOptions get nativeJs => _nativeJs;
+  NativeJsChildProcessExecFileOptions get nativeJsChildProcessExecFileOptions =>
+      _nativeJs;
 }
 
 final ChildProcessExecFileOptions _defaultChildProcessExecFileOptions =
@@ -206,7 +208,8 @@ class ChildProcessForkOptions {
             uid: uid,
             gid: gid);
 
-  NativeJsChildProcessForkOptions get nativeJs => _nativeJs;
+  NativeJsChildProcessForkOptions get nativeJsChildProcessForkOptions =>
+      _nativeJs;
 }
 
 final ChildProcessForkOptions _defaultChildProcessForkOptions =
@@ -265,7 +268,8 @@ class ChildProcessSpawnOptions {
             gid: gid,
             shell: shell);
 
-  NativeJsChildProcessSpawnOptions get nativeJs => _nativeJs;
+  NativeJsChildProcessSpawnOptions get nativeJsChildProcessSpawnOptions =>
+      _nativeJs;
 }
 
 final ChildProcessSpawnOptions _defaultChildProcessSpawnOptions =
@@ -335,7 +339,8 @@ class ChildProcessExecFileSyncOptions {
             killSignal: killSignal,
             encoding: encoding);
 
-  NativeJsChildProcessExecFileSyncOptions get nativeJs => _nativeJs;
+  NativeJsChildProcessExecFileSyncOptions
+      get nativeJsChildProcessExecFileSyncOptions => _nativeJs;
 }
 
 final ChildProcessExecFileSyncOptions _defaultChildProcessExecFileSyncOptions =
@@ -409,7 +414,8 @@ class ChildProcessExecSyncOptions {
             maxBuffer: maxBuffer,
             encoding: encoding);
 
-  NativeJsChildProcessExecSyncOptions get nativeJs => _nativeJs;
+  NativeJsChildProcessExecSyncOptions get nativeJsChildProcessExecSyncOptions =>
+      _nativeJs;
 }
 
 final ChildProcessExecSyncOptions _defaultChildProcessExecSyncOptions =
@@ -483,7 +489,8 @@ class ChildProcessSpawnSyncOptions {
             encoding: encoding,
             shell: shell);
 
-  NativeJsChildProcessSpawnSyncOptions get nativeJs => _nativeJs;
+  NativeJsChildProcessSpawnSyncOptions
+      get nativeJsChildProcessSpawnSyncOptions => _nativeJs;
 }
 
 final ChildProcessSpawnSyncOptions _defaultChildProcessSpawnSyncOptions =
@@ -508,7 +515,7 @@ class SpawnSyncResult {
 
   SpawnSyncResult.fromNativeJsSpawnSyncResult(this._nativeJs);
 
-  NativeJsSpawnSyncResult get nativeJs => _nativeJs;
+  NativeJsSpawnSyncResult get nativeJsSpawnSyncResult => _nativeJs;
 
   int get pid => _nativeJs.pid;
   List<dynamic> get output => _nativeJs.output;
@@ -593,8 +600,7 @@ class ChildProcess extends EventEmitter {
     _initAllStreamController();
   }
 
-  @override
-  NativeJsChildProcess get nativeJs => _childProcess;
+  NativeJsChildProcess get nativeJsChildProcess => _childProcess;
 
   bool get connected => _childProcess.connected;
   int get pid => _childProcess.pid;

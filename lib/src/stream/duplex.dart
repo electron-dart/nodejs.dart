@@ -50,8 +50,9 @@ class Duplex extends Readable implements Writable {
     _initAllStreamController();
   }
 
+  NativeJsDuplex get nativeJsDuplex => _duplex;
   @override
-  NativeJsDuplex get nativeJs => _duplex;
+  NativeJsWritable get nativeJsWritable => _writable;
 
   @override
   set defaultEncoding(String value) => _writable.setDefaultEncoding(value);

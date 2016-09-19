@@ -20,6 +20,8 @@ class RangeError extends Error {
     _error = _rangeError;
   }
 
+  NativeJsRangeError get nativeJsRangeError => _rangeError;
+
   @override
   String get stack => _rangeError.stack;
   @override
